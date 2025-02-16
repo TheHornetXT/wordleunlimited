@@ -65,7 +65,11 @@ function initializeGame() {
         for (let j = 0; j < 5; j++) {
             const cell = document.createElement("div");
             cell.className = "cell";
-            cell.innerHTML = `<div class="front"></div><div class="back"></div>`;
+            cell.innerHTML = `
+                <div class="letter"></div>
+                <div class="front"></div>
+                <div class="back"></div>
+            `;
             row.appendChild(cell);
         }
         gameBoard.appendChild(row);
@@ -110,7 +114,8 @@ function updateBoard() {
     const row = gameBoard.children[6 - guessesRemaining];
     for (let i = 0; i < 5; i++) {
         const cell = row.children[i];
-        cell.querySelector(".front").textContent = currentGuess[i] || "";
+        const letterElement = cell.querySelector(".letter");
+        letterElement.textContent = currentGuess[i] || "";
     }
 }
 
@@ -126,7 +131,6 @@ function submitGuess() {
     for (let i = 0; i < 5; i++) {
         const cell = row.children[i];
         const letter = currentGuess[i];
-        const front = cell.querySelector(".front");
         const back = cell.querySelector(".back");
 
         if (letter === secretWord[i]) {
